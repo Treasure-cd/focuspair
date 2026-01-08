@@ -1,0 +1,12 @@
+import { Pool } from 'pg';
+import 'dotenv/config';
+
+const pool = new Pool({
+    user: process.env.USER,
+    host: "localhost",
+    database: "notes_app",
+    password: process.env.PASSWORD,
+    port: 5432,
+});
+
+export default pool;
