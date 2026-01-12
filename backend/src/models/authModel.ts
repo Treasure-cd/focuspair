@@ -1,7 +1,6 @@
 import pool from "../db/index.js";
 
 export interface createUserType {
-    id: string,
     email: string,
     username: string,
     passwordHash: string,
@@ -18,7 +17,6 @@ export interface UserRow {
 
 
 export const createUser = async({
-    id,
     email,
     username,
     passwordHash, 
@@ -26,11 +24,11 @@ export const createUser = async({
     }: createUserType) => {
     const result = await pool.query(
         `
-        INSERT INTO users (id, email, username, password_hash, timezone)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO users (email, username, password_hash, timezone)
+        VALUES ($1, $2, $3, $4)
         RETURNING id, email, username, timezone
         `,
-        [id, email, username, passwordHash, timezone]
+        [email, username, passwordHash, timezone]
         );
     return result.rows[0];
 }

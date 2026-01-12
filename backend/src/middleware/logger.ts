@@ -1,6 +1,5 @@
-import type { HandlerTypes } from "../types/handlerTypes.js";
-
-const logger = ({req, res, next}: HandlerTypes) => {
+import type { Request, Response, NextFunction } from "express";
+const logger = (req: Request, res: Response, next: NextFunction) => {
     console.log(`${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`);
     next();
 }
