@@ -4,7 +4,6 @@ import logger from "./middleware/logger.js"
 import errorHandler from "./middleware/errorHandler.js";
 import 'dotenv/config';
 
-console.log("🔥 MAIN SERVER FILE LOADED");
 
 const PORT = 5000;
 

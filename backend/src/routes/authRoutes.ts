@@ -1,17 +1,11 @@
 import express from "express";
 import { asyncHandler } from "../middleware/asyncHandler.js";
-import { createUserController } from "../controllers/authController.js";
-
-console.log("🔥 AUTH ROUTES LOADED");
-
+import { createUserController, getUserByIdentifierController } from "../controllers/authController.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Hello World")
-})
-
 router.post("/register", asyncHandler(createUserController));
+router.post("/login", asyncHandler(getUserByIdentifierController))
 
 
 export default router

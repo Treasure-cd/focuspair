@@ -1,4 +1,5 @@
 import pool from "../db/index.js";
+import { createError } from "../utils/createError.js";
 
 export interface createUserType {
     email: string,
@@ -22,6 +23,7 @@ export const createUser = async({
     passwordHash, 
     timezone
     }: createUserType) => {
+    try {
     const result = await pool.query(
         `
         INSERT INTO users (email, username, password_hash, timezone)
@@ -31,6 +33,20 @@ export const createUser = async({
         [email, username, passwordHash, timezone]
         );
     return result.rows[0];
+    } catch (err: any) {
+        console.log(err);
+    if (err.code === "23505") {
+      if (err.constraint === "users_email_key") {
+        throw createError("Validation error", 409, { email: "Email already in use" })
+      }
+
+      if (err.constraint === "users_username_key") {
+        throw createError("Validation error", 409, { username: "Username already in use" })
+      }
+    }
+
+    throw err; 
+  }
 }
 
 export const getUserByIdentifier = async(identifier: string) : Promise<UserRow | null> => {
@@ -44,7 +60,7 @@ export const getUserByIdentifier = async(identifier: string) : Promise<UserRow |
         `:
         `SELECT id, username, email, password_hash, timezone
         FROM users
-        WHERE email = $1
+        WHERE username = $1
         `        
         , [identifier])
 
