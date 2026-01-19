@@ -1,16 +1,10 @@
-export interface AppError extends Error {
-  statusCode: number;
-  errors?: Record<string, string>;
-}
+import { AppError } from "../classes/AppError.js";
 
 export function createError(
   message: string,
   statusCode: number,
   errors?: Record<string, string>
 ): AppError {
-  const err = new Error(message) as AppError;
-  err.statusCode = statusCode;
-  if (errors) err.errors = errors;
-  return err;
-}
 
+ return new AppError(message, statusCode, errors);
+}
