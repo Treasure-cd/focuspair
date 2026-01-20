@@ -5,6 +5,7 @@ import { isValidUsername, isValidEmail, isString, isValidTimezone, minLength, va
 import type { FieldValidators } from "../utils/validateFields.js";
 import { hashPassword } from "../utils/passwordHash.js";
 import comparePasswords from "../utils/comparePasswords.js";
+import jwt from 'jsonwebtoken';
 
 type PublicUser = {
   id: string;
@@ -54,6 +55,8 @@ export const createUserController = async(req: Request, res: Response, next: Nex
         user,
     });
 
+    
+
 
 }
 
@@ -81,20 +84,37 @@ export const getUserByIdentifierController = async(req: Request, res: Response, 
     if (errors) return next(createError("Validation error", 400, errors));
     const user = await getUserByIdentifier(identifier);
 
-    const isValid = comparePasswords(password, user?.password_hash);
+    const isValid = await comparePasswords(password, user?.password_hash);
 
     if (!isValid || user === null) 
         return next(createError("Invalid email, username, or password", 400));
+
 
     const publicUser: PublicUser = {
         id: user.id,
         username: user.username,
     };
-    
+
+    if (!process.env.SECRET_KEY) {
+        throw new Error("SECRET_KEY is not defined");
+    }
+
+    const token = jwt.sign(
+    { sub: publicUser.id },
+    process.env.SECRET_KEY,
+    { expiresIn: "1h" }
+    );
+            
+    res.cookie("token", token, {
+        httpOnly: true,
+    })
+
     res.status(201).json({
         success: true,
-        user: publicUser
+        token,
     });
+
+
 
 
 }
