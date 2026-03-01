@@ -2,6 +2,9 @@
 import { cookies } from 'next/headers'
 import ky, { HTTPError } from 'ky';
 import { getApiBaseUrl } from "@/utils/getBaseUrl";
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+
 
 export async function login(identifier: string, password: string) {
   try {
@@ -15,7 +18,10 @@ export async function login(identifier: string, password: string) {
     path: '/',
     maxAge: 60 * 60 * 24 * 7,
   })
+    revalidatePath('/', 'layout')
+    
     return { success: true }
+    
   } catch (err) {
       if (err instanceof HTTPError) {
         const errorData = await err.response.json();

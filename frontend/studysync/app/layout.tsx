@@ -40,24 +40,9 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
 
-      let user = null
-      let error = null
+  const user = await getMe();
 
-  try {
-    user = await getMe()
-  } catch (err) {
-    error = "Auth server unavailable"
-  }
 
-    if (error) {
-    return (
-      <html>
-        <body>
-          <div>Something went wrong. Please try again later.</div>
-        </body>
-      </html>
-    )
-  }
 
 
   return (

@@ -4,6 +4,8 @@ import { cookies } from 'next/headers'
 import ky, { HTTPError } from 'ky'
 import { getApiBaseUrl } from '@/utils/getBaseUrl'
 import { User } from '../types/userType'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export async function getMe() {
   const cookieStore = await cookies()
@@ -13,24 +15,28 @@ export async function getMe() {
     return null
   }
 
-  try {
     const apiUrl = getApiBaseUrl()
 
     const res: User = await ky.get(`${apiUrl}/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      hooks: {
+      beforeRequest: [
+        (request) => {
+          request.headers.set('Cache-Control', 'no-store');
+        }
+      ]
+    }
     }).json()
+  
 
     return res
+}
 
-  } catch (err) {
-    if (err instanceof HTTPError) {
-      if (err.response.status === 401) {
-        return null
-      }
-    }
-
-    throw new Error("Failed to fetch user")
-  }
+export async function logout() {
+  const cookieStore = await cookies()
+  cookieStore.delete('token')
+  revalidatePath('/')
+  redirect('/login')
 }
