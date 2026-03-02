@@ -8,6 +8,9 @@
   --background: #f2f7ff;
   --foreground: #171717;
   --loaderborder: #1d293d;
+  --offbackground: #F2F4F7;
+  --hover: #e5e7eb;
+  --bordercolor: #364153;
 }
 
 html.dark {
@@ -15,6 +18,10 @@ html.dark {
   --foreground: #ededed;
   --inputbg: #030712;
   --loader-border: #cad5e2;
+  --offbackground: #101828;
+  --hover: #1e2939;
+  --bordercolor: #d1d5dc;
+
 }
 
 @theme inline {
@@ -27,8 +34,10 @@ html.dark {
   --color-inputbg: var(--inputbg);
   --color-darkbackground: #000b1a;
   --color-lightbackground: #f2f7ff;
-  --color-loaderborder: var(--loader-border)
-  
+  --color-loaderborder: var(--loader-border);
+  --color-offbackground: var(--offbackground);
+  --color-hover: var(--hover);
+  --color-bordercolor: var(--bordercolor)
 }
 
 

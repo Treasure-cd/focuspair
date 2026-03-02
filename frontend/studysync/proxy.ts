@@ -1,27 +1,30 @@
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/signin'
-    
-    
- 
-    const token = request.cookies.get('token')?.value;
+  const token = request.cookies.get('token')?.value;
+  const { pathname } = request.nextUrl;
 
-    if (!token) {
-      console.log(url);
-         return NextResponse.redirect(url);
+  const isGuestRoute = pathname === '/' || pathname === '/signin';
+  const isProtectedRoute = pathname.startsWith('/home') || pathname.startsWith('/profile');
 
-    }
+  if (token && isGuestRoute) {
+    return NextResponse.redirect(new URL('/home', request.url));
+  }
 
-    return NextResponse.next()
+  if (!token && isProtectedRoute) {
+    const signinUrl = new URL('/signin', request.url);
+    return NextResponse.redirect(signinUrl);
+  }
 
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
+    '/',
+    '/signin',
     '/home/:path*',
     '/profile/:path*',
   ],
-}
+};

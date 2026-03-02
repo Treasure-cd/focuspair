@@ -38,5 +38,5 @@ export async function logout() {
   const cookieStore = await cookies()
   cookieStore.delete('token')
   revalidatePath('/')
-  redirect('/login')
+  redirect('/signin')
 }
