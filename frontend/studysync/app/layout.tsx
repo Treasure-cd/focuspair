@@ -7,7 +7,6 @@ import Toast from "@/components/ui/Toast";
 import { getMe } from "@/app/actions/user"
 
 
-
 // type Props<As extends React.ElementType = "a"> = 
 //   { as: As } &
 //   React.ComponentProps<As> &
@@ -41,6 +40,7 @@ export default async function RootLayout({
 }>) {
 
   const user = await getMe();
+  console.log("Layout rendered");
 
 
 

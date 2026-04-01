@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext } from "react"
 import { User } from "@/app/types/userType"
 
 type AuthContextType = {
@@ -12,11 +12,9 @@ const AuthContext = createContext<AuthContextType>({
 })
 
 export function AuthProvider({ children, initialUser }: { children: React.ReactNode, initialUser: User | null }) {
-  const [user, setUser] = useState<User | null>(initialUser);
-
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user: initialUser }}>
       {children}
     </AuthContext.Provider>
   )

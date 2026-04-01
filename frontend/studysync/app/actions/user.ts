@@ -12,6 +12,7 @@ export async function getMe() {
   const token = cookieStore.get('token')?.value
 
   if (!token) {
+    console.log("No token yet??")
     return null
   }
 
@@ -30,7 +31,7 @@ export async function getMe() {
     }
     }).json()
   
-
+    console.log("Positive there's a token")
     return res
 }
 

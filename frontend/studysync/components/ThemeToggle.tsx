@@ -38,8 +38,8 @@ const ThemeToggle = () => {
     
     <button onClick={() => setTheme(isDark? "light" : "dark")} className='cursor-pointer transition duration-300 ease-in-out'>
       {isDark? 
-      <MoonIcon className='w-10 h-10 text-blue-200 hover:text-blue-200/80 ' />: 
-        <SunIcon className='w-10 h-10 text-amber-200 hover:text-amber-200/80' />
+      <MoonIcon weight="thin" className='w-10 h-10 text-blue-200 hover:text-blue-200/80 ' />: 
+        <SunIcon weight='thin' className='w-10 h-10 text-amber-500 hover:text-amber-200/80' />
       }
      
       

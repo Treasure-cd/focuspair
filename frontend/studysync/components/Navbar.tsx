@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="flex flex-row items-center">
           <a href="localhost:3000/home">
             <h2 className='font-logo text-2xl font-extrabold pl-5 cursor-pointer'>
-              StudySync
+              STUDY<span className="text-primary">SYNC</span>
             </h2>
           </a>
         </div>

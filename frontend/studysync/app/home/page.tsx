@@ -9,9 +9,6 @@ const page = async() => {
 
   return (
     <div>
-        <h1>Homepage</h1>
-        <p>Hello </p>
-        <User />
     </div>
   )
 }

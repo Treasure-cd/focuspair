@@ -16,10 +16,9 @@ export async function login(identifier: string, password: string) {
     secure: true,
     sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24,
   })
-    revalidatePath('/', 'layout')
-    
+    revalidatePath('/home', 'layout')
     return { success: true }
     
   } catch (err) {
