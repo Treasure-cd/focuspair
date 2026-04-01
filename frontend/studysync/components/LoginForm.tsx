@@ -64,8 +64,6 @@ const LoginForm = () => {
         await login(identifier, password);
         console.log("SET FALSE")
         setIsLoading(false);
-        console.log("Router.refresh")
-        router.refresh();
         console.log("Router.push home")
         router.push("/home")
 

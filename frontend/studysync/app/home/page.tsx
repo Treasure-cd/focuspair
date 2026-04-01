@@ -1,15 +1,18 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import User from '@/components/User';
-
-const page = async() => {
+import HomeStudy from "@/components/HomeStudy"
 
 
+const page = () => {
 
+  function handleCreateGroup() {
+
+  }
 
   return (
-    <div>
-    </div>
+    <>
+      <div className='p-4'>
+        <HomeStudy />
+      </div>
+    </>
   )
 }
 
