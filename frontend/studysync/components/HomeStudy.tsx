@@ -1,9 +1,14 @@
 "use client"
-import { useRouter } from 'next/router'
+import { useState } from 'react';
 import StudyPickView from './StudyPickView'
+import CreateGroupModal from './CreateGroupModal';
 
 const HomeStudy = () => {
-    const router = useRouter();
+    const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
+
+    function handleSubmit() {
+
+    }
   return (
      <div>
         <h2 className=' px-4 py-3 flex tracking-wide font-bold font-heading text-sm uppercase'>
@@ -11,7 +16,12 @@ const HomeStudy = () => {
         </h2>
         <StudyPickView
           groups={[]} 
-          onCreateGroup={() => router.push("/create")}
+          onCreateGroup={() => setIsCreateGroupModalOpen(true)}
+        />
+        <CreateGroupModal 
+            isOpen={isCreateGroupModalOpen}
+            onClose={() => setIsCreateGroupModalOpen(false)}
+            onSubmit={handleSubmit}
         />
      </div>
   )
