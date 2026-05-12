@@ -290,10 +290,7 @@ const CreateGroupModal = ({ isOpen, onClose, onSubmit }: CreateGroupModalProps) 
                 */}
               </div>
             )}
-
-            <p className="text-[11px] text-foreground/35 mt-0.5">
-              Optional — you can always add members after creating the group.
-            </p>
+      
           </div>
         </div>
 
